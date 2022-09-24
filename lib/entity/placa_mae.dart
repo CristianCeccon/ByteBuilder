@@ -1,4 +1,4 @@
-import 'package:bytebuilder/entidades/base.dart';
+import 'package:bytebuilder/entity/base.dart';
 
 class PlacaMae extends Base {
   late String socket;
