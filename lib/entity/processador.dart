@@ -1,5 +1,6 @@
-import 'package:bytebuilder/data/pc_dto.dart';
+import 'package:bytebuilder/data/compra_dto.dart';
 import 'package:bytebuilder/entity/base.dart';
+import 'package:bytebuilder/exception/conteudo_invalido.dart';
 import 'package:bytebuilder/exception/valor_inavlido.dart';
 
 class Processador extends Base {
@@ -16,20 +17,22 @@ class Processador extends Base {
     required nome,
   }) : super(marca: marca, preco: preco, nome: nome);
 
-  Processador.criar(PcDTO pcDTO) : super(preco: pcDTO.processador.preco, nome: pcDTO.processador.nome, marca: pcDTO.processador.marca) {
-    pcDTO.validarBase();
+  Processador.criar(CompraDTO compra) : super(preco: compra.processador.preco, nome: compra.processador.nome, marca: compra.processador.marca) {
+    compra.processador.validarBase();
 
-    int nucleo = pcDTO.processador.nucleo;
-    double frequencia = pcDTO.processador.frequencia;
-    // String socket = pcDTO.processador.socket;
+    int nucleo = compra.processador.nucleo;
+    double frequencia = compra.processador.frequencia;
+    String socket = compra.processador.socket;
 
     if (frequencia <= 0 || frequencia > 1000) throw ValorInvalido("A frequência do processador é inválido");
     if (nucleo <= 0 || nucleo > 1000) throw ValorInvalido("A quantidade de núcleos é inválida");
+    if (socket.isEmpty) throw ConteudoInvalido("O modelo do socket não pode ser vazio");
 
     this.frequencia = frequencia;
     this.nucleo = nucleo;
-    nome = pcDTO.processador.nome;
-    preco = pcDTO.processador.preco;
-    marca = pcDTO.processador.marca;
+    this.socket = socket;
+    nome = compra.processador.nome;
+    preco = compra.processador.preco;
+    marca = compra.processador.marca;
   }
 }
