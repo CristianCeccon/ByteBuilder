@@ -1,5 +1,5 @@
-import 'package:bytebuilder/exception/conteudo_invalido.dart';
-import 'package:bytebuilder/exception/preco_invalido.dart';
+import 'package:bytebuilder/domain/exception/conteudo_invalido.dart';
+import 'package:bytebuilder/domain/exception/preco_invalido.dart';
 
 class Base {
   late String nome;

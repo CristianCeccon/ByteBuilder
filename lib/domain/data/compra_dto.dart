@@ -1,6 +1,6 @@
-import 'package:bytebuilder/entity/memoria.dart';
-import 'package:bytebuilder/entity/placa_mae.dart';
-import 'package:bytebuilder/entity/processador.dart';
+import 'package:bytebuilder/domain/entity/memoria.dart';
+import 'package:bytebuilder/domain/entity/placa_mae.dart';
+import 'package:bytebuilder/domain/entity/processador.dart';
 
 class CompraDTO {
   late PlacaMae placaMae;

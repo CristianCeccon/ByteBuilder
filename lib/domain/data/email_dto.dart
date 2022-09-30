@@ -1,4 +1,4 @@
-import 'package:bytebuilder/data/produto_dto.dart';
+import 'package:bytebuilder/domain/data/produto_dto.dart';
 
 class EmailDTO {
   String msg;
