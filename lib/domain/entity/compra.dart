@@ -1,4 +1,3 @@
-import 'package:bytebuilder/domain/data/compra_dto.dart';
 import 'package:bytebuilder/domain/entity/memoria.dart';
 import 'package:bytebuilder/domain/entity/placa_mae.dart';
 import 'package:bytebuilder/domain/entity/processador.dart';
