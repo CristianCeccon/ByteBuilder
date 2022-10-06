@@ -6,13 +6,15 @@ import 'package:bytebuilder/domain/exception/componente_incompativel.dart';
 class Compra {
   late PlacaMae placaMae;
   late Processador processador;
+  int? id;
 
   late double precoTotal;
 
-  Compra({required this.placaMae, required this.processador});
-  
+  Compra({required this.placaMae, required this.processador, this.id});
+
   CompraDTODatabase toDTODatabase() {
     return CompraDTODatabase(
+      id: id!,
       placaMae: placaMae.toDTO(),
       processador: processador.toDTO(),
       precoTotal: precoTotal,
@@ -34,7 +36,8 @@ class Compra {
 
   void validarCompatibilidade(PlacaMae placaMae, Processador processador) {
     if (placaMae.socket.toLowerCase() != processador.socket.toLowerCase()) {
-      throw ComponenteIncompativel("O processador é imcompatível com a placa-mãe escolhida");
+      throw ComponenteIncompativel(
+          "O processador é imcompatível com a placa-mãe escolhida");
     }
   }
 }
