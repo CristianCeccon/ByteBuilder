@@ -7,7 +7,8 @@ class PlacaMaeRepositoryImpl implements PlacaMaeRepository {
   Future<bool> salvar(PlacaMaeDTO placaMae) async {
     var db = await Connection.db;
 
-    var sql = "INSERT INTO PROCESSADOR(nome, marca, preco, ddr, socket) VALUES(?, ?, ?, ?, ?)";
+    var sql =
+        "INSERT INTO PLACA_MAE(nome, marca, preco, ddr, socket) VALUES(?, ?, ?, ?, ?)";
 
     var res = await db.rawInsert(sql, [
       placaMae.nome,
@@ -23,8 +24,8 @@ class PlacaMaeRepositoryImpl implements PlacaMaeRepository {
     }
   }
 
-  PlacaMaeDTO _toDTO(Map<String, dynamic> item){
-    var plac =  PlacaMaeDTO(
+  PlacaMaeDTO _toDTO(Map<String, dynamic> item) {
+    var plac = PlacaMaeDTO(
       nome: item["nome"],
       marca: item["marca"],
       preco: item["preco"],
@@ -34,7 +35,7 @@ class PlacaMaeRepositoryImpl implements PlacaMaeRepository {
     plac.id = item["id"];
     return plac;
   }
-  
+
   @override
   Future<List<PlacaMaeDTO>> listar() async {
     var db = await Connection.db;
