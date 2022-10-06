@@ -25,7 +25,7 @@ class PlacaMae extends Base {
     );
   }
 
-  PlacaMae.criar(PlacaMae placaMae) : super(preco: placaMae.preco, nome: placaMae.nome, marca: placaMae.marca) {
+  PlacaMae.criar(PlacaMaeDTO placaMae) : super(preco: placaMae.preco, nome: placaMae.nome, marca: placaMae.marca) {
     placaMae.validarBase();
 
     int ddr = placaMae.ddr;

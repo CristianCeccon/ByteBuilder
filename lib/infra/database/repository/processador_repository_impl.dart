@@ -25,7 +25,7 @@ class ProcessadorRepositoryImpl implements ProcessadorRepository {
   }
 
   ProcessadorDTO _toDTO(Map<String, dynamic> item){
-    return ProcessadorDTO(
+    var proc = ProcessadorDTO(
       nome: item["nome"],
       marca: item["marca"],
       preco: item["preco"],
@@ -33,6 +33,8 @@ class ProcessadorRepositoryImpl implements ProcessadorRepository {
       frequencia: item["frequencia"],
       socket: item["socket"],
     );
+    proc.id = item["id"];
+    return proc;
   }
   
   @override

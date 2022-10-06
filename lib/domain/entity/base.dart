@@ -2,11 +2,12 @@ import 'package:bytebuilder/domain/exception/conteudo_invalido.dart';
 import 'package:bytebuilder/domain/exception/preco_invalido.dart';
 
 class Base {
+  int? id;
   late String nome;
   late String marca;
   late double preco;
 
-  Base({required this.marca, required this.preco, required this.nome});
+  Base({required this.marca, required this.preco, required this.nome, this.id});
 
   validarBase() {
     validarPreco();

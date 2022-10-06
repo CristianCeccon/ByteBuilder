@@ -24,13 +24,15 @@ class PlacaMaeRepositoryImpl implements PlacaMaeRepository {
   }
 
   PlacaMaeDTO _toDTO(Map<String, dynamic> item){
-    return PlacaMaeDTO(
+    var plac =  PlacaMaeDTO(
       nome: item["nome"],
       marca: item["marca"],
       preco: item["preco"],
       ddr: item["ddr"],
       socket: item["socket"],
     );
+    plac.id = item["id"];
+    return plac;
   }
   
   @override

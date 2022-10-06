@@ -13,6 +13,7 @@ CREATE TABLE PROCESSADOR(
     socket TEXT NOT NULL
 ); 
 """;
+
 const String sqlPlac = """
 CREATE TABLE PLACA_MAE(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,11 +26,26 @@ CREATE TABLE PLACA_MAE(
 ); 
 """;
 
+const String sqlComp = """
+CREATE TABLE COMPRA(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    placa_mae INTEGER NOT NULL,
+    processador INTEGER NOT NULL,
+    preco_total DOUBLE NOT NULL,
+
+    FOREIGN KEY(placa_mae) REFERENCES PLACA_MAE(id),
+    FOREIGN KEY(processador) REFERENCES PROCESSADOR(id)
+); 
+""";
+
 const List<String> inserts = [
   "INSERT INTO PROCESSADOR VALUES (1, 'p1', 'Intel', 150.00, 2, 2.5, 'LGA1151');",
   "INSERT INTO PROCESSADOR VALUES (2, 'p2', 'AMD', 1300.00, 4, 4.6, 'AM4');",
   "INSERT INTO PLACA_MAE VALUES (3, 'pm1', 'Gigabyte', 500.00, 4, 'LGA1151');",
   "INSERT INTO PLACA_MAE VALUES (4, 'pm2', 'ASUS', 400.00, 4, 'AM4');",
+
+  "INSERT INTO COMPRA VALUES (5, 2, 4, 1700.00);",
+  "INSERT INTO COMPRA VALUES (6, 1, 3, 650.00);",
 ];
 
 class Connection {
@@ -48,6 +64,7 @@ class Connection {
       onCreate: (db, version) async {
         await db.execute(sqlProc);
         await db.execute(sqlPlac);
+        await db.execute(sqlComp);
         for (String sql in inserts){
           await db.rawInsert(sql);
         }
