@@ -13,7 +13,7 @@ class EmailManagerImpl extends EmailManager {
     final msg = Message()
       ..from = const Address("username", 'Your name')
       ..recipients.add(emailDTO.destino)
-      ..subject = 'Compra concluída'
+      ..subject = emailDTO.assunto
       ..html = conteudo;
 
     try {

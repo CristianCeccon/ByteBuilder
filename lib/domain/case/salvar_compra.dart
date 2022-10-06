@@ -29,8 +29,8 @@ class SalvarCompra {
     PlacaMae placaMae = PlacaMae.criar(compraDTO.placaMae);
     Compra compra = Compra.criar(placaMae, processador, memoria);
     memoriaRepository.salvar(memoria);
-    processadorRepository.salvar(processador);
-    placaMaeRepository.salvar(placaMae);
+    processadorRepository.salvar(processador.toDTO());
+    placaMaeRepository.salvar(placaMae.toDTO());
     compraRepository.salvar(compra);
 
     produtos = [
@@ -44,6 +44,7 @@ class SalvarCompra {
 
   void enviarEmail(double precoTotal) {
     var emailDTO = EmailDTO(
+      assunto: "Compra concluída.",
       destino: "email@gmail.com",
       msg: "Sua compra foi concluída com sucesso.",
       precoTotal: precoTotal,

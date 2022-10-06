@@ -1,3 +1,4 @@
+import 'package:bytebuilder/domain/data/processador_dto.dart';
 import 'package:bytebuilder/domain/entity/base.dart';
 import 'package:bytebuilder/domain/exception/conteudo_invalido.dart';
 import 'package:bytebuilder/domain/exception/valor_inavlido.dart';
@@ -16,7 +17,19 @@ class Processador extends Base {
     required nome,
   }) : super(marca: marca, preco: preco, nome: nome);
 
-  Processador.criar(Processador processador) : super(preco: processador.preco, nome: processador.nome, marca: processador.marca) {
+  ProcessadorDTO toDTO() {
+    return ProcessadorDTO(
+      nucleo: nucleo,
+      frequencia: frequencia,
+      socket: socket,
+      marca: marca,
+      preco: preco,
+      nome: nome,
+    );
+  }
+
+  Processador.criar(Processador processador)
+      : super(preco: processador.preco, nome: processador.nome, marca: processador.marca) {
     processador.validarBase();
 
     int nucleo = processador.nucleo;
