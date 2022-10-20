@@ -7,7 +7,7 @@ class Compra {
   late PlacaMae placaMae;
   late Processador processador;
 
-  late double precoTotal;
+  double precoTotal = 0;
 
   Compra({required this.placaMae, required this.processador});
   
@@ -22,8 +22,8 @@ class Compra {
   Compra.criar(PlacaMae placaMae, Processador processador) {
     validarCompatibilidade(placaMae, processador);
 
-    placaMae = placaMae;
-    processador = processador;
+    this.placaMae = placaMae;
+    this.processador = processador;
 
     calcularPreco();
   }
