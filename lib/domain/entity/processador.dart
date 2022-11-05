@@ -25,11 +25,11 @@ class Processador extends Base {
       marca: marca,
       preco: preco,
       nome: nome,
+      id: id,
     );
   }
 
-  Processador.criar(ProcessadorDTO processador)
-      : super(preco: processador.preco, nome: processador.nome, marca: processador.marca) {
+  Processador.criar(ProcessadorDTO processador) : super(preco: processador.preco, nome: processador.nome, marca: processador.marca) {
     processador.validarBase();
 
     int nucleo = processador.nucleo;
@@ -46,5 +46,6 @@ class Processador extends Base {
     nome = processador.nome;
     preco = processador.preco;
     marca = processador.marca;
+    id = processador.id;
   }
 }

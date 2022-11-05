@@ -12,5 +12,6 @@ class ProcessadorDTO extends Base {
     required marca,
     required preco,
     required nome,
-  }) : super(marca: marca, preco: preco, nome: nome);
+    id,
+  }) : super(marca: marca, preco: preco, nome: nome, id: id);
 }

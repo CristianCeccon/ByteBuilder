@@ -4,27 +4,21 @@ import 'package:bytebuilder/infra/database/connection.dart';
 
 class ProcessadorRepositoryImpl implements ProcessadorRepository {
   @override
-  Future<bool> salvar(ProcessadorDTO processador) async {
+  Future<ProcessadorDTO> salvar(ProcessadorDTO processador) async {
     var db = await Connection.db;
 
     var sql = "INSERT INTO PROCESSADOR(nome, marca, preco, nucleo, frequencia, socket) VALUES(?, ?, ?, ?, ?, ?)";
 
-    var res = await db.rawInsert(sql, [
-      processador.nome,
-      processador.marca,
-      processador.preco,
-      processador.nucleo,
-      processador.frequencia,
-      processador.socket
-    ]);
+    var res = await db.rawInsert(sql, [processador.nome, processador.marca, processador.preco, processador.nucleo, processador.frequencia, processador.socket]);
+    processador.id = res;
     if (res != null) {
-      return true;
+      return processador;
     } else {
-      return false;
+      return processador;
     }
   }
 
-  ProcessadorDTO _toDTO(Map<String, dynamic> item){
+  ProcessadorDTO _toDTO(Map<String, dynamic> item) {
     var proc = ProcessadorDTO(
       nome: item["nome"],
       marca: item["marca"],
@@ -36,7 +30,7 @@ class ProcessadorRepositoryImpl implements ProcessadorRepository {
     proc.id = item["id"];
     return proc;
   }
-  
+
   @override
   Future<List<ProcessadorDTO>> listar() async {
     var db = await Connection.db;

@@ -9,6 +9,7 @@ import 'package:bytebuilder/domain/port/compra_repository.dart';
 import 'package:bytebuilder/domain/port/email_manager.dart';
 import 'package:bytebuilder/domain/port/placa_mae_repository.dart';
 import 'package:bytebuilder/domain/port/processador_repository.dart';
+import 'package:bytebuilder/infra/email_manager/email_manager_impl.dart';
 
 class SalvarCompra {
   late ProcessadorRepository processadorRepository;
@@ -21,12 +22,16 @@ class SalvarCompra {
   late List<ProdutoDTO> produtos;
 
   SalvarCompra(this.compraDTO, this.placaMaeRepository, this.processadorRepository, this.compraRepository) {
-    
+    salvar();
+  }
+
+  Future<void> salvar() async {
     Processador processador = Processador.criar(compraDTO.processador);
     PlacaMae placaMae = PlacaMae.criar(compraDTO.placaMae);
-    Compra compra = Compra.criar(placaMae, processador);
-    processadorRepository.salvar(processador.toDTO());
-    placaMaeRepository.salvar(placaMae.toDTO());
+    var proc = await processadorRepository.salvar(processador.toDTO());
+    var placa = await placaMaeRepository.salvar(placaMae.toDTO());
+    Compra compra = Compra.criar(PlacaMae.criar(placa), Processador.criar(proc));
+
     compraRepository.salvar(compra.toDTODatabase());
 
     produtos = [
@@ -40,13 +45,13 @@ class SalvarCompra {
   void enviarEmail(double precoTotal) {
     var emailDTO = EmailDTO(
       assunto: "Compra concluída.",
-      destino: "email@gmail.com",
+      destino: "jgdml2801@gmail.com",
       msg: "Sua compra foi concluída com sucesso.",
       precoTotal: precoTotal,
       produtos: produtos,
     );
 
-    var enviarCompra = EnviarCompra(emailDTO: emailDTO, emailManager: emailManager);
+    var enviarCompra = EnviarCompra(emailDTO: emailDTO, emailManager: EmailManagerImpl());
     enviarCompra.enviarEmailCompra();
   }
 }

@@ -22,6 +22,7 @@ class PlacaMae extends Base {
       marca: marca,
       preco: preco,
       nome: nome,
+      id: id,
     );
   }
 
@@ -39,5 +40,6 @@ class PlacaMae extends Base {
     nome = placaMae.nome;
     preco = placaMae.preco;
     marca = placaMae.marca;
+    id = placaMae.id;
   }
 }

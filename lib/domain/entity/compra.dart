@@ -14,7 +14,7 @@ class Compra {
 
   CompraDTODatabase toDTODatabase() {
     return CompraDTODatabase(
-      id: id!,
+      id: id,
       placaMae: placaMae.toDTO(),
       processador: processador.toDTO(),
       precoTotal: precoTotal,

@@ -4,23 +4,17 @@ import 'package:bytebuilder/infra/database/connection.dart';
 
 class PlacaMaeRepositoryImpl implements PlacaMaeRepository {
   @override
-  Future<bool> salvar(PlacaMaeDTO placaMae) async {
+  Future<PlacaMaeDTO> salvar(PlacaMaeDTO placaMae) async {
     var db = await Connection.db;
 
-    var sql =
-        "INSERT INTO PLACA_MAE(nome, marca, preco, ddr, socket) VALUES(?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO PLACA_MAE(nome, marca, preco, ddr, socket) VALUES(?, ?, ?, ?, ?)";
 
-    var res = await db.rawInsert(sql, [
-      placaMae.nome,
-      placaMae.marca,
-      placaMae.preco,
-      placaMae.ddr,
-      placaMae.socket
-    ]);
+    var res = await db.rawInsert(sql, [placaMae.nome, placaMae.marca, placaMae.preco, placaMae.ddr, placaMae.socket]);
+    placaMae.id = res;
     if (res != null) {
-      return true;
+      return placaMae;
     } else {
-      return false;
+      return placaMae;
     }
   }
 

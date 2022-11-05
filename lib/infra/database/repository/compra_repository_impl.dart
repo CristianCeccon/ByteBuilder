@@ -11,8 +11,8 @@ class CompraRepositoryImpl implements CompraRepository {
         "INSERT INTO COMPRA(placa_mae, processador, preco_total) VALUES(?, ?, ?)";
 
     var res = await db.rawInsert(sql, [
-      compra.placaMae,
-      compra.processador,
+      compra.placaMae.id,
+      compra.processador.id,
       compra.precoTotal,
     ]);
     if (res != null) {

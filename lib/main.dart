@@ -1,25 +1,23 @@
+import 'package:bytebuilder/app/home.dart';
 import 'package:bytebuilder/domain/data/email_dto.dart';
+import 'package:bytebuilder/domain/data/placa_mae_dto.dart';
 import 'package:bytebuilder/domain/data/produto_dto.dart';
-import 'package:bytebuilder/infra/database/connection.dart';
+import 'package:bytebuilder/domain/entity/placa_mae.dart';
+import 'package:bytebuilder/infra/database/repository/placa_mae_repository_impl.dart';
 import 'package:bytebuilder/infra/email_manager/email_manager_impl.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  teste();
+void main() async {
+  // await teste();
+  runApp(MyApp());
 }
 
-void teste() async {
-  var email = EmailManagerImpl();
-
-  var dto = EmailDTO(
-    assunto: "Compra concluída.",
-    destino: "cristian_ceccon45@hotmail.com",
-    msg: "Sua compra foi concluída com sucesso.",
-    precoTotal: 12000,
-    produtos: [ProdutoDTO(nome: "Processador I18", preco: 6000), ProdutoDTO(nome: "Placa Mãe AORUS RGB PRO", preco: 6000)],
-  );
-
-  email.enviarEmail(dto);
+Future<void> teste() async {
+  var repo = PlacaMaeRepositoryImpl();
+  for (int i = 0; i < 5; i++) {
+    var placa = PlacaMaeDTO(nome: "Placa $i", ddr: i + 2, marca: "Marca $i", preco: i + i * 1000, socket: "LGA 115$i");
+    repo.salvar(placa);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -32,58 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        leading: IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () => Connection.deleteDB(),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: teste,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: Home(),
     );
   }
 }
