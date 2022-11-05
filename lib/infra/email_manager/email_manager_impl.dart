@@ -1,25 +1,29 @@
+import 'dart:convert';
+
 import 'package:bytebuilder/domain/data/email_dto.dart';
 import 'package:bytebuilder/domain/port/email_manager.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
+import 'package:dio/dio.dart';
 
 class EmailManagerImpl extends EmailManager {
   @override
   Future<bool> enviarEmail(EmailDTO emailDTO) async {
     var conteudo = "<h3>${emailDTO.msg}</h3>";
 
-    emailDTO.produtos.map((produto) => conteudo += "<div style='display: flex;'> ${produto.nome}: ${produto.preco}</div>");
+    for (var produto in emailDTO.produtos) {
+      conteudo += "<div style='display: flex;'> <h4> ${produto.nome}: ${produto.preco} <h4> </div>";
+    }
 
-    final msg = Message()
-      ..from = const Address("username", 'Your name')
-      ..recipients.add(emailDTO.destino)
-      ..subject = emailDTO.assunto
-      ..html = conteudo;
+    conteudo += "<h3> Preco Total: ${emailDTO.precoTotal}</h3>";
 
     try {
-      await send(msg, gmailRelaySaslXoauth2("email@gmail.com", "token"));
+      await Dio(BaseOptions(baseUrl: "http://10.0.2.2:5000")).post("/send_email",
+          data: json.encode({
+            "email": emailDTO.destino,
+            "content": conteudo,
+            "subject": emailDTO.assunto,
+          }));
       return true;
-    } on MailerException {
+    } catch (err) {
       return false;
     }
   }

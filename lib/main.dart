@@ -1,22 +1,25 @@
+import 'package:bytebuilder/domain/data/email_dto.dart';
+import 'package:bytebuilder/domain/data/produto_dto.dart';
 import 'package:bytebuilder/infra/database/connection.dart';
-import 'package:bytebuilder/infra/database/repository/placa_mae_repository_impl.dart';
-import 'package:bytebuilder/infra/database/repository/processador_repository_impl.dart';
+import 'package:bytebuilder/infra/email_manager/email_manager_impl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  teste();
 }
 
 void teste() async {
-  var rp = ProcessadorRepositoryImpl();
-  var resp = await rp.listar();
+  var email = EmailManagerImpl();
 
-  print(resp);
+  var dto = EmailDTO(
+    assunto: "Compra concluída.",
+    destino: "cristian_ceccon45@hotmail.com",
+    msg: "Sua compra foi concluída com sucesso.",
+    precoTotal: 12000,
+    produtos: [ProdutoDTO(nome: "Processador I18", preco: 6000), ProdutoDTO(nome: "Placa Mãe AORUS RGB PRO", preco: 6000)],
+  );
 
-  var rpm = PlacaMaeRepositoryImpl();
-  var respm = await rpm.listar();
-
-  print(respm);
+  email.enviarEmail(dto);
 }
 
 class MyApp extends StatelessWidget {

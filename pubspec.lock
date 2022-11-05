@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -74,13 +81,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  intl:
+  http_parser:
     dependency: transitive
     description:
-      name: intl
+      name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.0"
+    version: "4.0.2"
   lints:
     dependency: transitive
     description:
@@ -88,20 +95,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  logging:
-    dependency: transitive
-    description:
-      name: logging
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
-  mailer:
-    dependency: "direct main"
-    description:
-      name: mailer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.2.0"
   matcher:
     dependency: transitive
     description:
@@ -116,13 +109,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   path:
     dependency: transitive
     description:
@@ -130,13 +116,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   sky_engine:
     dependency: transitive
     description: flutter
